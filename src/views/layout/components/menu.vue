@@ -5,7 +5,7 @@
       :default-open-keys="['sub1']"
       mode="inline"
       theme="dark"
-      :inline-collapsed="$store.state.collapsed"
+      :inline-collapsed="collapsed"
     >
       <a-menu-item key="1">
         <a-icon type="pie-chart" />
@@ -54,3 +54,13 @@
     </a-menu>
   </div>
 </template>
+
+<script>
+import { mapState } from 'vuex';
+
+export default {
+  computed: {
+    ...mapState(['collapsed']),
+  },
+};
+</script>

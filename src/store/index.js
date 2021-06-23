@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import { setCookie, getCookie, removeCookie } from '../util/cookie/indesx';
 
 Vue.use(Vuex);
 
@@ -7,15 +8,36 @@ export default new Vuex.Store({
   state: {
     // 首页左侧菜单的显示与隐藏 false：隐藏 true：显示
     collapsed: false,
+    user: getCookie(),
   },
   mutations: {
     changeCollapsed(state) {
       state.collapsed = !state.collapsed;
     },
+    setUserInfo(state, obj) {
+      state.user = obj;
+    },
+    ligout(state) {
+      state.user = {
+        email: '',
+        username: '',
+        appkey: '',
+        role: '',
+
+      };
+    },
   },
   actions: {
     changeCollapsed({ commit }) {
       commit('changeCollapsed');
+    },
+    setCookieInfo({ commit }, obj) {
+      commit('setUserInfo', obj);
+      setCookie(obj);
+    },
+    ligout({ commit }) {
+      commit('ligout');
+      removeCookie();
     },
   },
   modules: {},

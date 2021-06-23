@@ -27,7 +27,8 @@
 </div>
 </template>
 <script>
-import api from '../../api/ajax';
+import api from '@/api/ajax';
+import { mapActions } from 'vuex';
 
 export default {
   data() {
@@ -64,12 +65,13 @@ export default {
     };
   },
   methods: {
+    ...mapActions(['setCookieInfo']),
     submitForm(formName) {
       // eslint-disable-next-line consistent-return
       this.$refs[formName].validate((valid) => {
         if (valid) {
           api.login(this.ruleForm.email, this.ruleForm.pass).then((res) => {
-            console.log(res);
+            this.setCookieInfo(res);
             this.$router.push('/');
           }).catch((error) => {
             this.$message.error(error);

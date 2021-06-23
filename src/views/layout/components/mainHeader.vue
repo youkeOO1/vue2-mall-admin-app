@@ -2,7 +2,7 @@
   <div class="main-header">
     <!-- 左侧导航栏收缩 -->
     <a-button type="primary" style="margin-bottom: 16px" @click="toggleCollapsed">
-      <a-icon :type="$store.state.collapsed ? 'menu-unfold' : 'menu-fold'" />
+      <a-icon :type="collapsed ? 'menu-unfold' : 'menu-fold'" />
     </a-button>
     <!-- 面包屑 -->
     <div class="breadcrumb">
@@ -14,7 +14,7 @@
     <!-- 用户 -->
     <ul class="user-info">
       <li>
-        欢迎用户某某某
+        {{ user.username}}
         <a-icon type="down" />
       </li>
       <li>退出</li>
@@ -22,10 +22,16 @@
   </div>
 </template>
 <script>
+import { mapState, mapActions } from 'vuex';
+
 export default {
+  computed: {
+    ...mapState(['collapsed', 'user']),
+  },
   methods: {
+    ...mapActions(['changeCollapsed']),
     toggleCollapsed() {
-      this.$store.dispatch('changeCollapsed');
+      this.changeCollapsed();
     },
   },
 };

@@ -15,8 +15,8 @@
   </div>
 </template>
 <script>
-import login from './login.vue';
-import logon from './logon.vue';
+import login from './components/login.vue';
+import logon from './components/logon.vue';
 import updataPass from './components/updataPass.vue';
 
 export default {
@@ -32,9 +32,7 @@ export default {
   },
   methods: {
     callback(key) {
-      console.log(key);
-      console.log(this);
-      // this.key = key;
+      this.key = key;
     },
     handelClick(key) {
       this.key = key.toString();

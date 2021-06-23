@@ -31,7 +31,7 @@
 </div>
 </template>
 <script>
-import api from '../../api/ajax';
+import api from '../../../api/ajax';
 
 export default {
   data() {

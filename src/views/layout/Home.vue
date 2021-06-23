@@ -2,17 +2,21 @@
   <div class="home">
     <!-- 左侧导航栏 -->
     <left-menu />
-    <div :class="{'main-app':true, 'collapsed':$store.state.collapsed }">
+    <div :class="{'main-app':true, 'collapsed':collapsed }">
       <main-header />
     </div>
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import LeftMenu from './components/menu.vue';
 import MainHeader from './components/mainHeader.vue';
 
 export default {
+  computed: {
+    ...mapState(['collapsed']),
+  },
   components: {
     LeftMenu,
     MainHeader,
