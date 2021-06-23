@@ -1,14 +1,14 @@
 <template>
-<div class="login">
+<div class="lo-warp">
     <a-form-model ref="ruleForm" :model="ruleForm" :rules="rules" v-bind="layout">
       <!-- email -->
-      <a-form-model-item has-feedback label="邮箱" prop="email" >
+      <a-form-model-item has-feedback  prop="email" >
         <a-input v-model="ruleForm.email" type="email" autocomplete="off" placeholder="请输入邮箱" >
           <a-icon slot="prefix" type="user" />
         </a-input>
       </a-form-model-item>
       <!-- passowrd -->
-      <a-form-model-item has-feedback label="密码" prop="pass">
+      <a-form-model-item has-feedback  prop="pass">
         <a-input v-model="ruleForm.pass" type="password" autocomplete="off" placeholder="请输入密码" >
           <a-icon slot="prefix" type="lock" />
           <!-- <a-icon type="lock" /> -->
@@ -18,10 +18,11 @@
         <a-button type="primary" @click="submitForm('ruleForm')">
           登录
         </a-button>
-        <a-button style="margin-left: 10px" @click="resetForm('ruleForm')">
-          重置
-        </a-button>
       </a-form-model-item>
+      <div class="loginorupdataPass">
+        <span @click="$emit('show-updata-pass', '3')">忘记密码</span>
+        <span @click="$emit('show-updata-pass', '2')">注册</span>
+      </div>
     </a-form-model>
 </div>
 </template>
@@ -79,18 +80,7 @@ export default {
         }
       });
     },
-    resetForm(formName) {
-      api.logon('1921380844@qq.com', '123456789', '555888', 'root', 'admin').then((res) => {
-        console.log(res);
-      }).catch((err) => {
-        console.log(err);
-      });
-      this.$refs[formName].resetFields();
-    },
   },
 
 };
 </script>
-<style lang="less">
-@import url("../../assets/css/login.less");
-</style>

@@ -1,6 +1,18 @@
-.login .ant-form {
+.lo-warp .ant-form {
   max-width: 500px;
   padding: 30px 20px 6px;
   border: 1px solid #ccc;
   margin: 0 auto;
+}
+.lo-warp .loginorupdataPass {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 20px;
+}
+.lo-warp .loginorupdataPass span {
+  cursor: pointer;
+}
+.lo-warp .loginorupdataPass span:hover {
+  color: #fff;
 }

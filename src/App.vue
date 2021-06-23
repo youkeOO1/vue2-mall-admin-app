@@ -8,7 +8,9 @@
 
 export default {
   name: 'app',
-
+  mounted() {
+    console.log(this.prototype);
+  },
 };
 </script>
 
@@ -16,4 +18,5 @@ export default {
 #app{
   height: 100%;
 }
+
 </style>
