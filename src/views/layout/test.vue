@@ -1,5 +1,4 @@
 <template>
-<!-- 待测试的登录页面 -->
   <div class="login-warp">
     <a-tabs    @change="callback"  v-model="key">
       <a-tab-pane key="1" tab="登录">

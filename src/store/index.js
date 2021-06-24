@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import { setCookie, getCookie, removeCookie } from '../util/cookie/indesx';
+import { setCookie, getCookie, removeCookie } from '../util/cookie/index';
 
 Vue.use(Vuex);
 
@@ -17,7 +17,7 @@ export default new Vuex.Store({
     setUserInfo(state, obj) {
       state.user = obj;
     },
-    ligout(state) {
+    logout(state) {
       state.user = {
         email: '',
         username: '',
@@ -35,8 +35,8 @@ export default new Vuex.Store({
       commit('setUserInfo', obj);
       setCookie(obj);
     },
-    ligout({ commit }) {
-      commit('ligout');
+    logout({ commit }) {
+      commit('logout');
       removeCookie();
     },
   },

@@ -17,7 +17,7 @@
         {{ user.username}}
         <a-icon type="down" />
       </li>
-      <li>退出</li>
+      <li @click="quit">退出</li>
     </ul>
   </div>
 </template>
@@ -29,9 +29,13 @@ export default {
     ...mapState(['collapsed', 'user']),
   },
   methods: {
-    ...mapActions(['changeCollapsed']),
+    ...mapActions(['changeCollapsed', 'logout']),
     toggleCollapsed() {
       this.changeCollapsed();
+    },
+    quit() {
+      this.logout();
+      this.$router.push('/test');
     },
   },
 };
