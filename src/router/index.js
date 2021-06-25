@@ -15,6 +15,8 @@ const asyncRouter = [
     name: 'Product',
     meta: {
       title: '商品',
+      icon: 'inbox',
+      hidden: false,
     },
     component: Home,
     children: [
@@ -23,6 +25,8 @@ const asyncRouter = [
         name: 'ProductList',
         meta: {
           title: '商品列表',
+          icon: 'unordered-list',
+          hidden: false,
         },
         component: () => import('@/views/layout/page/productList.vue'),
       },
@@ -31,6 +35,8 @@ const asyncRouter = [
         name: 'ProductAdd',
         meta: {
           title: '添加商品',
+          icon: 'file-add',
+          hidden: false,
         },
         component: () => import('@/views/layout/page/productAdd.vue'),
       },
@@ -39,10 +45,21 @@ const asyncRouter = [
         name: 'ProductCategory',
         meta: {
           title: '类目管理',
+          icon: 'project',
+          hidden: false,
         },
         component: () => import('@/views/layout/page/productCategory.vue'),
       },
     ],
+  },
+  {
+    path: '/notFound',
+    name: 'notFound',
+    meta: {
+      title: '404',
+      hidden: true,
+    },
+    component: NotFound,
   },
 ];
 
@@ -52,6 +69,8 @@ const routes = [
     name: 'Home',
     meta: {
       title: '首页',
+      hidden: false,
+      icon: 'home',
     },
     component: Home,
     children: [
@@ -60,6 +79,8 @@ const routes = [
         name: 'Index',
         meta: {
           title: '统计',
+          icon: 'number',
+          hidden: false,
         },
         component: index,
       },
@@ -70,16 +91,9 @@ const routes = [
     name: 'Test',
     meta: {
       title: '登录',
+      hidden: true,
     },
     component: Test,
-  },
-  {
-    path: '/notFound',
-    name: 'notFound',
-    meta: {
-      title: '404',
-    },
-    component: NotFound,
   },
 ];
 
@@ -88,11 +102,10 @@ const router = new VueRouter({
 });
 let isAddRouter = false;
 router.beforeEach((to, from, next) => {
-  console.log(to);
   if (to.matched.length === 0) {
-    return next('/notFound');
+    return next('/');
   }
-
+  console.log(to, from, '导航守卫');
   if (to.path !== '/test') {
     const {
       username, appkey, role, email,
@@ -102,9 +115,11 @@ router.beforeEach((to, from, next) => {
       if (!isAddRouter) {
         // 获取过滤好的路由配置
         const userRouter = getMenuRouter(role, asyncRouter);
-        // 将其配置添加到路由
-        router.addRoutes(userRouter);
-        store.dispatch('setMenuRouter', routes.concat(userRouter));
+        store.dispatch('setMenuRouter', routes.concat(userRouter)).then(() => {
+          // 将其配置添加到路由
+          router.addRoutes(userRouter);
+          // next();
+        });
         isAddRouter = true;
       }
       return next();
