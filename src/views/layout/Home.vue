@@ -4,6 +4,7 @@
     <left-menu />
     <div :class="{'main-app':true, 'collapsed':collapsed }">
       <main-header />
+      <router-view></router-view>
     </div>
   </div>
 </template>

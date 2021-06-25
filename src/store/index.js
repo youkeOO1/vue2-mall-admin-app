@@ -9,6 +9,7 @@ export default new Vuex.Store({
     // 首页左侧菜单的显示与隐藏 false：隐藏 true：显示
     collapsed: false,
     user: getCookie(),
+    menuRouter: [],
   },
   mutations: {
     changeCollapsed(state) {
@@ -23,8 +24,10 @@ export default new Vuex.Store({
         username: '',
         appkey: '',
         role: '',
-
       };
+    },
+    setMenuRouter(state, routers) {
+      state.menuRouter = routers;
     },
   },
   actions: {
@@ -38,6 +41,9 @@ export default new Vuex.Store({
     logout({ commit }) {
       commit('logout');
       removeCookie();
+    },
+    setMenuRouter({ commit }, routers) {
+      commit('setMenuRouter', routers);
     },
   },
   modules: {},
