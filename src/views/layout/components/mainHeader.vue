@@ -6,9 +6,15 @@
     </a-button>
     <!-- 面包屑 -->
     <div class="breadcrumb">
-      <a-breadcrumb>
-        <a-breadcrumb-item>首页</a-breadcrumb-item>
-        <a-breadcrumb-item><a href="">统计</a></a-breadcrumb-item>
+      <a-breadcrumb v-if="currentRoute.length > 1">
+        <a-breadcrumb-item>
+          {{ currentRoute[0] ? currentRoute[0].meta.title : ''}}
+          </a-breadcrumb-item>
+        <a-breadcrumb-item>
+          <router-link :to="{name: currentRoute[1].name}">
+            {{ currentRoute[1].meta.title }}
+            </router-link>
+          </a-breadcrumb-item>
       </a-breadcrumb>
     </div>
     <!-- 用户 -->
@@ -25,6 +31,17 @@
 import { mapState, mapActions } from 'vuex';
 
 export default {
+  data() {
+    return {
+      // 开始获取不到当前选中路由，因为router还未实例完
+      currentRoute: this.$router.currentRoute.matched,
+    };
+  },
+  watch: {
+    $route() {
+      this.currentRoute = this.$router.currentRoute.matched;
+    },
+  },
   computed: {
     ...mapState(['collapsed', 'user']),
   },
@@ -37,6 +54,9 @@ export default {
       this.logout();
       this.$router.push('/test');
     },
+  },
+  mounted() {
+    console.log(this.$router, 'header');
   },
 };
 </script>

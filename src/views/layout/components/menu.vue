@@ -1,6 +1,5 @@
 <template>
   <div class="menu-list">
-    {{ $router.currentRoute.matched[0].name }}
     <a-menu
       :default-selected-keys="[
       $router.currentRoute.matched[1] ? $router.currentRoute.matched[1].name : ''
@@ -36,7 +35,6 @@ export default {
     ...mapState(['collapsed', 'menuRouter']),
   },
   mounted() {
-    console.log(this.$router);
     window.router = this.$router;
   },
 };

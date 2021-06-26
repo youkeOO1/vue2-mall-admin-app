@@ -67,6 +67,7 @@ const routes = [
   {
     path: '/',
     name: 'Home',
+    redirect: '/index',
     meta: {
       title: '首页',
       hidden: false,
@@ -105,7 +106,6 @@ router.beforeEach((to, from, next) => {
   if (to.matched.length === 0) {
     return next('/');
   }
-  console.log(to, from, '导航守卫');
   if (to.path !== '/test') {
     const {
       username, appkey, role, email,
