@@ -6,7 +6,6 @@ const instance = axios.create({
 });
 // 添加请求拦截器
 instance.interceptors.request.use((config) => {
-  console.log(config, '请求配置');
   if (config.url.includes('passport')) {
     return config;
   }

@@ -1,5 +1,6 @@
 <template>
-  <a-form-model layout="inline" :model="searchFrom" @submit="handleSubmit" @submit.native.prevent>
+<div class="search">
+    <a-form-model layout="inline" :model="searchFrom" @submit="handleSubmit" @submit.native.prevent>
     <a-form-model-item label="检索关键字">
       <a-input v-model="searchFrom.searchWord" placeholder="请输入关键字"> </a-input>
     </a-form-model-item>
@@ -22,6 +23,7 @@
       </a-button>
     </a-form-model-item>
   </a-form-model>
+</div>
 </template>
 <script>
 export default {
@@ -45,3 +47,8 @@ export default {
   },
 };
 </script>
+<style scoped>
+.search {
+  padding: 20px;
+}
+</style>
