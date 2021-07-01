@@ -10,6 +10,9 @@ const roleToRouter = {
       name: 'ProductAdd',
     },
     {
+      name: 'ProductEdit',
+    },
+    {
       name: 'ProductList',
     },
   ],
@@ -19,6 +22,9 @@ const roleToRouter = {
     },
     {
       name: 'ProductAdd',
+    },
+    {
+      name: 'ProductEdit',
     },
     {
       name: 'ProductList',

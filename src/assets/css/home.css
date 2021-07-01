@@ -31,15 +31,18 @@
 }
 .home .main-app .main-header .user-info li:not(:first-child) {
   display: none;
+  z-index: 999;
+}
+.home .main-app .main-header .user-info:hover li {
+  display: block;
+  position: relative;
+  background: #ccc;
 }
 .home .main-app .main-header .user-info li {
   padding: 0 20px;
 }
 .home .main-app .main-header .user-info li:hover {
-  background: #eee;
+  background: #000;
   font-weight: 700;
   color: #999;
-}
-.home .main-app .main-header .user-info:hover li {
-  display: block;
 }

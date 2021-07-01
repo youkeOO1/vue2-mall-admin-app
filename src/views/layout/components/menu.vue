@@ -1,26 +1,26 @@
 <template>
   <div class="menu-list">
     <a-menu
-      :default-selected-keys="[
-      $router.currentRoute.matched[1] ? $router.currentRoute.matched[1].name : ''
-      ]"
-      :default-open-keys="[$router.currentRoute.matched[0].name]"
+      :default-selected-keys="[defaultSelectedKeys]"
+      :default-open-keys="[defaultOpenKeys]"
       mode="inline"
       theme="dark"
       :inline-collapsed="collapsed"
     >
-      <template v-for="item in menuRouter" >
+      <template v-for="item in menuRouter">
         <a-sub-menu v-if="!item.meta.hidden" :key="item.name">
-          <span slot="title" >
+          <span slot="title">
             <a-icon :type="item.meta.icon" />
             <span>{{ item.meta.title }}</span>
-            </span>
-          <a-menu-item v-for="child in item.children" :key="child.name" >
-            <router-link :to="{name: child.name}">
-              <a-icon :type="child.meta.icon" />
-              {{ child.meta.title}}
-            </router-link>
-          </a-menu-item>
+          </span>
+          <template v-for="child in item.children">
+            <a-menu-item v-if="!child.meta.hidden"  :key="child.name">
+              <router-link :to="{ name: child.name }">
+                <a-icon :type="child.meta.icon" />
+                {{ child.meta.title }}
+              </router-link>
+            </a-menu-item>
+          </template>
         </a-sub-menu>
       </template>
     </a-menu>
@@ -33,9 +33,22 @@ import { mapState } from 'vuex';
 export default {
   computed: {
     ...mapState(['collapsed', 'menuRouter']),
-  },
-  mounted() {
-    window.router = this.$router;
+    /**
+     * 默认选中的路由
+     */
+    defaultSelectedKeys: {
+      get() {
+        return this.$router.currentRoute.matched[1] ? this.$router.currentRoute.matched[1].name : '';
+      },
+    },
+    /**
+     * 初始打开的路由
+     */
+    defaultOpenKeys: {
+      get() {
+        return this.$router.currentRoute.matched[0].name;
+      },
+    },
   },
 };
 </script>

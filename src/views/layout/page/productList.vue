@@ -1,14 +1,23 @@
 <template>
-  <div>
+  <div class="product-list">
+    <div class="product-list-top">
     <search :data="categoryList" @submit="searchSubmit"/>
-    <product-table :data= "productlist" :page="pages" @change="pageChange"/>
+    <a-button class="productList-add">
+      <router-link :to="{name: 'ProductAdd'}">添加商品</router-link>
+    </a-button>
+    </div>
+    <product-table :data= "productlist" :page="pages"
+                                        @change="pageChange"
+                                        @editProduct= 'editProduct'
+                                        @delProduct = 'delProduct'
+                                        />
   </div>
 </template>
 <script>
 import Search from '@/components/search.vue';
 import productTable from '@/components/productTable.vue';
 import getCommodityCategory from '@/api/category';
-import getProducts from '@/api/product';
+import api from '@/api/product';
 
 export default {
   data() {
@@ -39,12 +48,18 @@ export default {
     productTable,
   },
   methods: {
+    /**
+     * 搜索商品
+     */
     searchSubmit(data) {
       this.searchObj = data;
       this.getProductsAll();
     },
+    /**
+     * 按照页码获取商品
+     */
     async getProductsAll() {
-      await getProducts.list({
+      await api.list({
         page: this.pages.current,
         size: this.pages.pageSize,
         ...this.searchObj,
@@ -56,11 +71,47 @@ export default {
         }));
       });
     },
+    /**
+     * 当前选中的页码
+     */
     pageChange(res) {
       this.pages.current = res.current;
       this.getProductsAll();
     },
+    /**
+     * 跳转编辑商品页面
+     */
+    editProduct(record) {
+      this.$router.push({
+        name: 'ProductEdit',
+        params: {
+          id: record.id,
+        },
+      });
+    },
+    /**
+     * 删除商品
+     */
+    delProduct(record) {
+      const self = this;
+      this.$confirm({
+        title: 'Do you Want to delete these items?',
+        content: () => <div style="color:red;">{`确认删除${record.title}的商品`}</div>,
+        onOk() {
+          console.log('OK');
+          api.del(record.id);
+          self.getProductsAll();
+        },
+        onCancel() {
+          console.log('Cancel');
+        },
+        class: 'test',
+      });
+    },
   },
+  /**
+   * 获取数据
+   */
   async created() {
     await getCommodityCategory().then((res) => {
       this.categoryList = res.data;
@@ -72,3 +123,6 @@ export default {
   },
 };
 </script>
+<style lang="less" scoped>
+@import url('../../../assets/css/productList.less');
+</style>

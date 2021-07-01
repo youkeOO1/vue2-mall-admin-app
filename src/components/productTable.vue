@@ -1,8 +1,8 @@
 <template>
   <a-table :columns="columns" :data-source="tableList" :pagination="page" @change="change">
-    <div slot="operation">
-      <a-button>编辑</a-button>
-      <a-button>删除</a-button>
+    <div slot="operation" slot-scope="text, record">
+      <a-button @click="edit(record)">编辑</a-button>
+      <a-button @click="del(record)">删除</a-button>
     </div>
   </a-table>
 </template>
@@ -92,6 +92,12 @@ export default {
   methods: {
     change(pagination) {
       this.$emit('change', pagination);
+    },
+    edit(record) {
+      this.$emit('editProduct', record);
+    },
+    del(record) {
+      this.$emit('delProduct', record);
     },
   },
 };

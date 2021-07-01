@@ -47,16 +47,19 @@ export default {
   },
   methods: {
     ...mapActions(['changeCollapsed', 'logout']),
+    /**
+     * 左侧导航栏状态修改
+     */
     toggleCollapsed() {
       this.changeCollapsed();
     },
+    /**
+     * 用户退出登录
+     * */
     quit() {
       this.logout();
       this.$router.push('/test');
     },
-  },
-  mounted() {
-    console.log(this.$router, 'header');
   },
 };
 </script>

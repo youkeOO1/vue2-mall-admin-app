@@ -91,6 +91,9 @@ export default {
     };
   },
   methods: {
+    /**
+     * 用于注册账户
+     */
     submitForm(formName) {
       // eslint-disable-next-line consistent-return
       this.$refs[formName].validate((valid) => {
@@ -106,6 +109,9 @@ export default {
         }
       });
     },
+    /**
+     * 获取验证码
+     */
     getCode() {
       if (this.ruleForm.email) {
         api.getCode(this.ruleForm.email);

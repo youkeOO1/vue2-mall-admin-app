@@ -1,0 +1,13 @@
+.product-list .product-list-top {
+  position: relative;
+  padding: 5px;
+}
+.product-list .product-list-top .search {
+  padding-left: 15px;
+}
+.product-list .product-list-top .productList-add {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+}

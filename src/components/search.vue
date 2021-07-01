@@ -49,6 +49,6 @@ export default {
 </script>
 <style scoped>
 .search {
-  padding: 20px;
+  /* padding: 20px; */
 }
 </style>

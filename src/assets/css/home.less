@@ -34,17 +34,20 @@
                 cursor: pointer;
                 li:not(:first-child) {
                     display: none;
+                    z-index: 999;
+                }
+                &:hover li{
+                    display: block;
+                    position: relative;
+                    background: #ccc;
                 }
                 li{
                     padding: 0 20px;
                     &:hover{
-                        background: #eee;
+                        background: #000;
                         font-weight: 700;
                         color: #999;
                     }
-                }
-                &:hover li{
-                    display: block;
                 }
                 
             }
