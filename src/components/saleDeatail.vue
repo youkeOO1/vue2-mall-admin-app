@@ -15,7 +15,7 @@
       </a-form-model-item>
       <a-form-model-item label="商品相册" required prop="tags">
         <a-upload
-          action=" https://mallapi.duyiedu.com/upload/images?appkey=youkeOO1_1624003094702"
+          :action=" 'https://mallapi.duyiedu.com/upload/images?' + $store.state.user.appkey"
           list-type="picture-card"
           :file-list="fileList"
           @preview="handlePreview"
