@@ -13,7 +13,7 @@
             {{ c.name }}
           </a-select-option>
         </a-select>
-        <a-select v-model="form.c_items" placeholder="请选择子类目" prop="c_items">
+        <a-select v-model="form.c_item" placeholder="请选择子类目" prop="c_items">
           <a-select-option v-for="c in c_itemsList" :key="c" :value="c">
             {{ c }}
           </a-select-option>
@@ -65,7 +65,6 @@ export default {
     },
     /** 获取商品子类目 */
     changeCategory(value) {
-      console.log(value, 'value');
       for (let i = 0; i < this.categoryList.length; i += 1) {
         if (this.categoryList[i].id === value) {
           this.c_itemsList = this.categoryList[i].c_items;
@@ -76,7 +75,6 @@ export default {
   /** 获取商品类目 */
   created() {
     getCommodityCategory().then((res) => {
-      console.log(res.data, '类目');
       this.categoryList = res.data;
     });
   },

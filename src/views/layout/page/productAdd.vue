@@ -4,8 +4,8 @@
       <a-step v-for="item in steps" :key="item.title" :title="item.title" />
     </a-steps>
     <div class="steps-content">
-      <basic-detail v-if="current === 0" @next="next" :form='form'></basic-detail>
-      <sale-detail v-if="current === 1" :form='form' @next="next" @prev="prev"></sale-detail>
+      <basic-detail v-if="current === 0" @next="next" :form="form"></basic-detail>
+      <sale-detail v-if="current === 1" :form="form" @next="next" @prev="prev"></sale-detail>
     </div>
   </div>
 </template>
@@ -39,6 +39,7 @@ export default {
           title: '填写商品销售信息',
         },
       ],
+      id: null,
     };
   },
   components: {
@@ -50,14 +51,26 @@ export default {
     next(res) {
       console.log(res, this.form, 'emit');
       if (this.current === 1) {
-        api.add(this.form).then((a) => {
-          console.log(a, '提交成功后的返回值');
-          this.$message.success('添加商品成功');
-          this.$router.push({
-            name: 'ProductList',
+        // 判断是否为编辑上平数据
+        if (this.id) {
+          console.log(this.form, '修改后的商品数据');
+          api.edit(this.form).then((e) => {
+            console.log(e, '修改后的商品信息');
+            this.$message.success('修改成功');
+            this.$router.push({
+              name: 'ProductList',
+            });
           });
-        });
-        console.log(api);
+        } else {
+          // 添加商品
+          api.add(this.form).then((a) => {
+            console.log(a, '提交成功后的返回值');
+            this.$message.success('添加商品成功');
+            this.$router.push({
+              name: 'ProductList',
+            });
+          });
+        }
       } else {
         this.current += 1;
       }
@@ -67,25 +80,37 @@ export default {
       this.current -= 1;
     },
   },
+  created() {
+    // 当为编辑数据时，URL中会夹带商品id，当添加商品时URL中并没有夹带商品id
+    // 当为编辑数据时，让数据回填
+    this.id = this.$route.params.id;
+    if (this.id) {
+      api.select(this.id).then((res) => {
+        console.log(res, 'select');
+        this.form = res;
+      });
+    }
+  },
 };
 </script>
 
-<style lang="less" >
+<style lang="less">
 .product-add {
-  .product-steps{
+  .product-steps {
     width: 50%;
     margin: 20px auto;
   }
-  .sale-detail, .base-detail{
+  .sale-detail,
+  .base-detail {
     margin-top: 16px;
     border: 1px dashed #e9e9e9;
     border-radius: 6px;
     background-color: #fafafa;
     min-height: 200px;
     text-align: center;
-    padding-top: 80px
+    padding-top: 80px;
   }
-  .next-btn{
+  .next-btn {
     text-align: center;
     button {
       margin: 0 50px;

@@ -64,7 +64,6 @@ export default {
         size: this.pages.pageSize,
         ...this.searchObj,
       }).then((res) => {
-        console.log(res, '按照页码获取的数据');
         this.pages.total = res.total;
         this.productlist = res.data.map((ele) => ({
           ...ele,
@@ -99,7 +98,6 @@ export default {
         title: 'Do you Want to delete these items?',
         content: () => <div style="color:red;">{`确认删除${record.title}的商品`}</div>,
         onOk() {
-          console.log('OK');
           api.del(record.id);
           self.getProductsAll();
         },

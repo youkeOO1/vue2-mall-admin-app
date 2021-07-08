@@ -15,7 +15,7 @@
       </a-form-model-item>
       <a-form-model-item label="商品相册" required prop="tags">
         <a-upload
-          :action=" 'https://mallapi.duyiedu.com/upload/images?' + $store.state.user.appkey"
+          :action=" 'https://mallapi.duyiedu.com/upload/images?appkey=' + $store.state.user.appkey"
           list-type="picture-card"
           :file-list="fileList"
           @preview="handlePreview"
@@ -95,15 +95,32 @@ export default {
     },
     /** 上传文件 */
     handleChange({ file, fileList }) {
+      console.log(file.response, 'response');
+      console.log(file, 'file');
+      const url = file.response ? file.response.data.url : file.url;
       if (file.status === 'done') {
-        this.form.images.push(file.response.data.url);
+        console.log(file.response.data, '图片信息');
+        this.form.images.push(url);
       } else if (file.status === 'removed') {
-        const { url } = file.response.data;
+        // const { url } = file.response.data ? file.response.data : file;
         this.form.images = this.form.images.filter((ele) => ele !== url);
       }
-      console.log(this.form.images, '图片');
       this.fileList = fileList;
     },
+  },
+  /**
+   *  当为编辑产品信息，回填数据
+   */
+  created() {
+    console.log(this.form.images.length, '是否为编辑');
+    if (this.form.images.length > 0) {
+      this.fileList = this.form.images.map((ele, index) => ({
+        uid: index,
+        name: `image-${index}.png`,
+        status: 'done',
+        url: ele,
+      }));
+    }
   },
 };
 </script>

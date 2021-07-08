@@ -50,8 +50,5 @@ export default {
       },
     },
   },
-  mounted() {
-    console.log(this.$router.currentRoute.matched, '当前选中的路由');
-  },
 };
 </script>

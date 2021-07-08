@@ -18,7 +18,23 @@ export default {
   del(id) {
     return axios.delete(`/products/${id}`);
   },
+  /**
+   * 添加商品
+   * @param {*} params
+   * @returns
+   */
   add(params) {
     return axios.post('products/add', params);
+  },
+  /**
+   * 查新商品详情
+   * @param {*} id
+   * @returns
+   */
+  select(id) {
+    return axios.get(`/products/${id}`);
+  },
+  edit(params) {
+    return axios.put('/products/edit', params);
   },
 };
