@@ -70,10 +70,15 @@ export default {
   props: ['form'],
   methods: {
     next() {
-      this.$emit('next', this.form);
+      this.$refs.ruleForm.validate((valid) => {
+        if (valid) {
+          this.$emit('next', this.form);
+          return true;
+        }
+        return false;
+      });
     },
     prev() {
-      console.log('上一步');
       this.$emit('prev');
     },
     handleCancel() {
@@ -91,11 +96,12 @@ export default {
     /** 上传文件 */
     handleChange({ file, fileList }) {
       if (file.status === 'done') {
-        this.form.imgs.push(file.response.data.url);
+        this.form.images.push(file.response.data.url);
       } else if (file.status === 'removed') {
         const { url } = file.response.data;
-        this.form.imgs = this.form.imgs.filter((ele) => ele !== url);
+        this.form.images = this.form.images.filter((ele) => ele !== url);
       }
+      console.log(this.form.images, '图片');
       this.fileList = fileList;
     },
   },

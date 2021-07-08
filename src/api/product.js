@@ -19,6 +19,6 @@ export default {
     return axios.delete(`/products/${id}`);
   },
   add(params) {
-    return axios.post('products/add', { params });
+    return axios.post('products/add', params);
   },
 };

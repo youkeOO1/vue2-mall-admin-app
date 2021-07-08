@@ -27,7 +27,7 @@ export default {
         price_off: '',
         inventory: '',
         unit: '',
-        imgs: [],
+        images: [],
       },
       /** 步骤条的进度 */
       current: 0,
@@ -50,7 +50,8 @@ export default {
     next(res) {
       console.log(res, this.form, 'emit');
       if (this.current === 1) {
-        api.add(this.form).then(() => {
+        api.add(this.form).then((a) => {
+          console.log(a, '提交成功后的返回值');
           this.$message.success('添加商品成功');
           this.$router.push({
             name: 'ProductList',
