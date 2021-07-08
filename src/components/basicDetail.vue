@@ -47,17 +47,11 @@ export default {
     return {
       labelCol: { span: 5 },
       wrapperCol: { span: 13 },
-      form: {
-        title: '',
-        category: '',
-        c_items: [],
-        desc: '',
-        tags: [],
-      },
       categoryList: [],
       c_itemsList: [],
     };
   },
+  props: ['form'],
   methods: {
     /** 下一步 表单验证 */
     next() {
@@ -88,10 +82,3 @@ export default {
   },
 };
 </script>
-<style lang="less" scoped>
-.base-detail{
-  .next-btn{
-    text-align: center;
-  }
-}
-</style>

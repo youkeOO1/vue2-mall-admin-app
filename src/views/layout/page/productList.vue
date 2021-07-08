@@ -64,10 +64,11 @@ export default {
         size: this.pages.pageSize,
         ...this.searchObj,
       }).then((res) => {
+        console.log(res, '按照页码获取的数据');
         this.pages.total = res.total;
         this.productlist = res.data.map((ele) => ({
           ...ele,
-          categoryName: this.categoryObj[ele.category].name,
+          categoryName: this.categoryObj[ele.category].name ? this.categoryObj[ele.category].name : '未添加',
         }));
       });
     },
